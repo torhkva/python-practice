@@ -22,19 +22,18 @@ def get_stock_price(STOCK, COMPANY_NAME, TO):
         response = requests.get(url=url)
         if response.status_code == 200:
             result = response.json()
-            print(result)
             list_close_values = []
             for key, value in list(result["Time Series (Daily)"].items())[:2]:
                 list_close_values.append(value["4. close"])
             variance = round(((float(list_close_values[0]) - float(list_close_values[1])) / float(list_close_values[1] )) * 100, 2)
-            if variance >= 2.0:
+            if variance >= 5.0:
                 stock_variance = f"{STOCK}: 🔼 {variance}%"
                 get_stock_news(stock_variance, COMPANY_NAME, TO)
-            elif variance <= -2.0:
-                stock_variance = f"{STOCK}: 🔼 {variance}%"
+            elif variance <= -5.0:
+                stock_variance = f"{STOCK}: 🔽 {variance}%"
                 get_stock_news(stock_variance, COMPANY_NAME, TO)
             else:
-                return print()
+                return print(f"No news {variance}")
         else:
             print(f'Error: {response.status_code}')
             print(response.text)
@@ -84,3 +83,4 @@ def send_sms(stock_variance, news, TO):
     print(message.sid)
 
 get_stock_price(STOCK, COMPANY_NAME, TO)
+
