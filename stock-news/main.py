@@ -66,8 +66,7 @@ def get_stock_news(stock_variance, COMPANY_NAME, TO):
         print(f'Error: {e}')
 
 ## STEP 3: Use https://www.twilio.com
-# Send a seperate message with the percentage change and each article's title and description to your phone number. 
-# ALVA_API_KEY=O3QCTOJ3IILAJ4V6
+# Send a seperate message with the percentage change and each article's title and description to your phone number.
 
 
 def send_sms(stock_variance, news, TO):
