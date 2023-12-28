@@ -42,6 +42,7 @@ parameters = {
 sheety_endpoint = F"https://api.sheety.co/{API_SHEETS}/myWorkouts/workouts"
 sheety_headers = {
     "Content-Type": "application/json",
+    "Authorization": AUTH_URL
 }
 def post_request_sheets(exercises):
     for item in exercises:
