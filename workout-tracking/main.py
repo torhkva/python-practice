@@ -1,6 +1,7 @@
-import requests
 import os
 from datetime import datetime
+
+import requests
 
 # Primeramente asignamos todas las variables constantes
 APP_ID = os.environ.get("APP_ID")
@@ -44,6 +45,9 @@ sheety_headers = {
     "Content-Type": "application/json",
     "Authorization": AUTH_URL
 }
+
+
+# Esta funcion manda la lista de diccionarios a Google Sheets
 def post_request_sheets(exercises):
     for item in exercises:
         print(item)
@@ -58,6 +62,8 @@ def post_request_sheets(exercises):
         except Exception as e:
             print(f'Error: {e}')
 
+
+# Se comprueba que la data del input no sea None
 if query:
     exercises = []
     try:
