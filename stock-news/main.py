@@ -3,14 +3,13 @@ import requests
 import os
 from twilio.rest import Client
 
+#Se declaran las variables iniciales
 STOCK = "TSLA"
 COMPANY_NAME = "Tesla Inc"
 TO = os.environ.get("cel_number")
 
 
-## STEP 1: Use https://www.alphavantage.co
-# When STOCK price increase/decreases by 5% between yesterday and the day before yesterday then print("Get News").
-
+# Esta función obtiene los valores de la accion deseada
 def get_stock_price(STOCK, COMPANY_NAME, TO):
     # Se obtiene primeramente la llave de la API de una variable de entorno
     alva_api_key = os.environ.get("ALVA_API_KEY")
@@ -41,10 +40,7 @@ def get_stock_price(STOCK, COMPANY_NAME, TO):
         print(f'Error: {e}')
 
 
-## STEP 2: Use https://newsapi.org
-# Instead of printing ("Get News"), actually get the first 3 news pieces for the COMPANY_NAME.
-
-
+# Esta función obtiene las dos noticias mas relevantes sobre la acción deseada
 def get_stock_news(stock_variance, COMPANY_NAME, TO):
     neap_api_key = os.environ.get("NEAP_API_KEY")
     news_date = (datetime.now() - timedelta(days=1)).strftime('%Y-%m-%d')
@@ -65,10 +61,8 @@ def get_stock_news(stock_variance, COMPANY_NAME, TO):
     except Exception as e:
         print(f'Error: {e}')
 
-## STEP 3: Use https://www.twilio.com
-# Send a seperate message with the percentage change and each article's title and description to your phone number.
 
-
+# Esta función manda un mensaje sms con los datos anteriores
 def send_sms(stock_variance, news, TO):
     account_sid = os.environ.get("account_sid")
     auth_token = os.environ.get("auth_token")
