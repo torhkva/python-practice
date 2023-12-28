@@ -1,10 +1,11 @@
 import os
 import requests
+from datetime import datetime
 
 # Se definen los valores de usuario y contraseña
 USERNAME = os.environ.get("USERNAME")
 TOKEN = os.environ.get("TOKEN")
-GRAPH_ID = os.environ.get("TOKEN")
+GRAPH_ID = os.environ.get("GRAPH_ID")
 # Para crear una cuenta podemos utilizar el siguiente endpoint
 pixela_endpoint = "https://www.pixe.la/v1/users"
 # Asi como los parametros de usuario siguientes:
@@ -44,9 +45,24 @@ graph_config = {
 # Para mandar algun dato en la grafica utilizamos el siguiente endpoint
 pixel_endpoint = f"{pixela_endpoint}/{USERNAME}/graphs/{GRAPH_ID}"
 pixel_config = {
-    "date": "20231228",
-    "quantity": "15.2",
+    "date": "20231221",
+    "quantity": "10.7",
 }
 
-pixel_response = requests.post(pixel_endpoint, json=pixel_config, headers=headers)
-print(pixel_response.text)
+
+# pixel_response = requests.post(pixel_endpoint, json=pixel_config, headers=headers)
+# print(pixel_response.text)
+
+# Para editar alguna fecha vamos a utilizar el siguiente endpoint esta vez usamos datetime para formatear la fecha
+date_edited_raw = datetime(year=2023, month=12, day=21)
+date_edited = date_edited_raw.strftime("%Y%m%d")
+
+edit_endpoint = f"{pixela_endpoint}/{USERNAME}/graphs/{GRAPH_ID}/{date_edited}"
+
+# Y utilzamos el siguiente cuerpo
+edit_config = {
+    "quantity": "4.8"
+}
+edit_response = requests.put(edit_endpoint, json=edit_config, headers=headers)
+print(edit_response.text)
+
